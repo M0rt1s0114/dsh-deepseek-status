@@ -1,9 +1,9 @@
 /**
- * dsh-peak-valley host half.
+ * dsh-deepseek-status host half.
  *
  * Provides one small HTTP route that resolves the official DeepSeek API key
  * from DSH credentials and calls the official balance endpoint. The client
- * half renders both a balance pill and a peak/valley pricing pill.
+ * half renders the balance pill, a top-up link, and a peak/valley pricing pill.
  *
  * Security notes:
  * - The API key is used only in the Authorization header of the official
@@ -12,10 +12,10 @@
  * - The only outbound request is to https://api.deepseek.com/user/balance.
  * - Uses Node's built-in fetch, so no shell/curl is involved on any platform.
  */
-export const name = 'dsh-peak-valley'
+export const name = 'dsh-deepseek-status'
 
 const BALANCE_URL = 'https://api.deepseek.com/user/balance'
-const ROUTE_PATH = '/plugins/dsh-peak-valley/balance'
+const ROUTE_PATH = '/plugins/dsh-deepseek-status/balance'
 const WEB_SERVER_KEYS = ['webServer', 'httpServer']
 
 /**
@@ -130,7 +130,7 @@ export function apply(ctx, config = {}) {
       kind: 'exact',
       path: ROUTE_PATH,
       handler: async (_req, res) => respond(res),
-    }), 'dsh-peak-valley: balance route')
+    }), 'dsh-deepseek-status: balance route')
   }
 
   registerRoute()

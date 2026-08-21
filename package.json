@@ -1,7 +1,7 @@
 {
-  "name": "dsh-peak-valley",
+  "name": "dsh-deepseek-status",
   "version": "0.1.0",
-  "description": "DeepSeek Harness web plugin: session-header pills showing official DeepSeek API balance plus current peak/off-peak (valley) pricing status, Beijing time.",
+  "description": "DeepSeek Harness web plugin: session-header pills showing official DeepSeek API balance, a top-up link, and current peak/off-peak (valley) pricing status, Beijing time.",
   "type": "module",
   "main": "src/index.js",
   "exports": {
@@ -18,13 +18,13 @@
     "LICENSE"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/M0rt1s0114/dsh-peak-valley#readme",
+  "homepage": "https://github.com/M0rt1s0114/dsh-deepseek-status#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/M0rt1s0114/dsh-peak-valley.git"
+    "url": "git+https://github.com/M0rt1s0114/dsh-deepseek-status.git"
   },
   "bugs": {
-    "url": "https://github.com/M0rt1s0114/dsh-peak-valley/issues"
+    "url": "https://github.com/M0rt1s0114/dsh-deepseek-status/issues"
   },
   "engines": {
     "node": ">=18"
@@ -35,9 +35,11 @@
     "cordis",
     "plugin",
     "deepseek",
+    "balance",
+    "pricing",
     "peak",
     "valley",
-    "pricing"
+    "status"
   ],
   "dsh": {
     "bundle": {

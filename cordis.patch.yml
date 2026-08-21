@@ -1,5 +1,5 @@
-# dsh-peak-valley bundle patch: mount the peak/valley pill into the web profile.
+# dsh-deepseek-status bundle patch: mount the balance/pricing status pills into the web profile.
 - insert:
-    - id: dsh-peak-valley
-      name: dsh-peak-valley
+    - id: dsh-deepseek-status
+      name: dsh-deepseek-status
       config: {}
