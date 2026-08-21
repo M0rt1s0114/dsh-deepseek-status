@@ -6,11 +6,11 @@
  * half renders both a balance pill and a peak/valley pricing pill.
  *
  * Security notes:
- * - The API key is passed to curl through an environment variable, never
- *   through the command string, so it does not appear in the process command
- *   line.
+ * - The API key is used only in the Authorization header of the official
+ *   balance request; it is never written to logs or returned to the client.
  * - The route response contains only balance data, never the key.
  * - The only outbound request is to https://api.deepseek.com/user/balance.
+ * - Uses Node's built-in fetch, so no shell/curl is involved on any platform.
  */
 export const name = 'dsh-peak-valley'
 
@@ -26,9 +26,8 @@ const WEB_SERVER_KEYS = ['webServer', 'httpServer']
 async function fetchBalance(ctx, config) {
   const t0 = Date.now()
   const credentials = ctx.get('credentials')
-  const shell = ctx.get('shell')
-  if (credentials === undefined || shell === undefined) {
-    return { ok: false, error: 'credentials or shell service is not mounted', elapsedMs: Date.now() - t0 }
+  if (credentials === undefined) {
+    return { ok: false, error: 'credentials service is not mounted', elapsedMs: Date.now() - t0 }
   }
 
   let apiKey = ''
@@ -42,37 +41,41 @@ async function fetchBalance(ctx, config) {
     return { ok: false, error: `${config.apiKeyEnv} is not configured`, elapsedMs: Date.now() - t0 }
   }
 
-  let spec
+  let response
   try {
-    spec = shell.resolve({
-      command: `curl -sS --connect-timeout 3 --max-time 6 -H "Authorization: Bearer $DSH_BALANCE_KEY" ${BALANCE_URL}`,
-      env: { DSH_BALANCE_KEY: apiKey },
-      timeoutMs: config.shellTimeoutMs,
-      stdoutMaxBytes: 8192,
+    response = await fetch(BALANCE_URL, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        Accept: 'application/json',
+      },
+      signal: AbortSignal.timeout(config.timeoutMs),
     })
   } catch (err) {
-    return { ok: false, error: 'shell spec resolve failed', elapsedMs: Date.now() - t0 }
+    return { ok: false, error: `balance request failed: ${String((err && err.message) || err)}`, elapsedMs: Date.now() - t0 }
   }
 
-  let result
+  let text = ''
   try {
-    result = await shell.run(spec)
+    text = await response.text()
   } catch (err) {
-    return { ok: false, error: 'balance request failed', elapsedMs: Date.now() - t0 }
+    return { ok: false, error: 'failed to read balance response', elapsedMs: Date.now() - t0 }
   }
 
   let data = null
   try {
-    data = JSON.parse(result.stdout.text)
+    data = JSON.parse(text)
   } catch (err) {
     data = null
   }
+  if (!response.ok) {
+    const msg = (data !== null && typeof data === 'object' && data.error !== undefined && data.error !== null)
+      ? (typeof data.error === 'object' && data.error.message !== undefined ? String(data.error.message) : String(data.error))
+      : `HTTP ${response.status}`
+    return { ok: false, error: msg, elapsedMs: Date.now() - t0 }
+  }
   if (data === null || typeof data !== 'object') {
-    return {
-      ok: false,
-      error: `unexpected balance response (exit ${String(result.exitCode)})`,
-      elapsedMs: Date.now() - t0,
-    }
+    return { ok: false, error: 'unexpected balance response', elapsedMs: Date.now() - t0 }
   }
   if (data.error !== undefined && data.error !== null) {
     const msg = (typeof data.error === 'object' && data.error !== null && data.error.message !== undefined)
@@ -104,7 +107,7 @@ export function apply(ctx, config = {}) {
     apiKeyEnv: config.apiKeyEnv ?? 'DEEPSEEK_API_KEY',
     refreshIntervalMs: config.refreshIntervalMs ?? 300000,
     order: config.order ?? -1,
-    shellTimeoutMs: config.shellTimeoutMs ?? 8000,
+    timeoutMs: config.timeoutMs ?? config.shellTimeoutMs ?? 8000,
   }
 
   const respond = async (res) => {
