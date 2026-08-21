@@ -18,6 +18,14 @@
     "LICENSE"
   ],
   "license": "MIT",
+  "homepage": "https://github.com/M0rt1s0114/dsh-peak-valley#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M0rt1s0114/dsh-peak-valley.git"
+  },
+  "bugs": {
+    "url": "https://github.com/M0rt1s0114/dsh-peak-valley/issues"
+  },
   "engines": {
     "node": ">=18"
   },

@@ -1,5 +1,7 @@
 # dsh-peak-valley
 
+> GitHub: https://github.com/M0rt1s0114/dsh-peak-valley
+
 A small DeepSeek Harness web plugin that shows two pills in the session header for official DeepSeek sessions:
 
 1. **DeepSeek API balance** — fetched from the official `https://api.deepseek.com/user/balance` endpoint using your stored `DEEPSEEK_API_KEY`.
@@ -11,6 +13,14 @@ Pricing hours (Beijing time):
 - Valley: all other times (half price)
 
 ## Install
+
+From GitHub:
+
+```bash
+dsh plugin --profile web add github:M0rt1s0114/dsh-peak-valley
+```
+
+Or from a local checkout:
 
 ```bash
 dsh plugin --profile web add ./dsh-peak-valley
