@@ -1,0 +1,5 @@
+# dsh-peak-valley bundle patch: mount the peak/valley pill into the web profile.
+- insert:
+    - id: dsh-peak-valley
+      name: dsh-peak-valley
+      config: {}
