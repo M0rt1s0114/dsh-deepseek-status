@@ -42,8 +42,8 @@ Then restart `dsh web` / 然后重启 `dsh web`。
   余额默认每 5 分钟自动刷新，也可以点击胶囊内的刷新按钮手动刷新。
 - The top-up capsule opens `https://platform.deepseek.com/usage` in a new tab.
   充值胶囊会在新标签页打开 `https://platform.deepseek.com/usage`。
-- Peak/valley status is computed locally in the browser and refreshes every 30 seconds.
-  峰谷状态在浏览器本地计算，每 30 秒刷新。
+- Peak/valley status is computed locally in the browser, refreshes every 30 seconds, and shows a countdown to the next pricing transition.
+  峰谷状态在浏览器本地计算，每 30 秒刷新，并显示距离下一次计费时段切换的倒计时。
 - No third-party network calls. The only outbound request is to the official DeepSeek balance endpoint.
   没有第三方网络请求；唯一对外请求是 DeepSeek 官方余额接口。
 
