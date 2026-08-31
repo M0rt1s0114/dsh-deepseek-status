@@ -2,6 +2,9 @@
 
 > GitHub: https://github.com/M0rt1s0114/dsh-deepseek-status
 
+[![dsh.so risk](https://www.dsh.so/badge/dsh-deepseek-status-2.svg)](https://www.dsh.so/artifact/dsh-deepseek-status-2/)
+[![dsh.so install](https://www.dsh.so/badge/install/dsh-deepseek-status-2.svg)](https://www.dsh.so/artifact/dsh-deepseek-status-2/)
+
 A small DeepSeek Harness web plugin that shows three pills in the session header for official DeepSeek sessions:
 
 一个用于 DeepSeek Harness 的小插件，在官方 DeepSeek 会话头部显示三个胶囊：
