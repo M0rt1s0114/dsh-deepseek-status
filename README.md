@@ -22,6 +22,8 @@ Pricing hours (Beijing time) / 峰谷时段（北京时间）：
 - Valley / 空闲：all other times (half price) / 其余时段（半价）
 - From 2026-08-23: Saturday and Sunday are all-day valley; the continuous valley block runs from Friday 18:00 to Monday 09:00.
   自 2026-08-23 起：周六、周日全天为谷价；连续谷价时段从周五 18:00 到周一 09:00。
+- Chinese statutory holidays and adjusted working weekends are also all-day valley.
+  中国法定节假日、调休上班的周末同样全天按空闲时段计费。
 
 ## Install / 安装
 
