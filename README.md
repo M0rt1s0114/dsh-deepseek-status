@@ -43,16 +43,20 @@ Then restart `dsh web` / 然后重启 `dsh web`。
 
 ## Behavior / 行为
 
-- Shows only for official DeepSeek sessions (`provider: deepseek-official`).
-  仅在官方 DeepSeek 会话中显示（`provider: deepseek-official`）。
+- Shows for both DeepSeek model providers:
+  - `provider: deepseek-official` — balance is read with the configured `DEEPSEEK_API_KEY`.
+  - `provider: deepseek-account` — balance is read from the already signed-in DeepSeek account (no API key involved).
+  同时支持两种 DeepSeek 模型来源：
+  - `provider: deepseek-official` —— 使用配置的 `DEEPSEEK_API_KEY` 读取余额。
+  - `provider: deepseek-account` —— 读取已登录的 DeepSeek 账号余额（不涉及 API Key）。
 - Balance is fetched every 5 minutes by default and can be refreshed manually from the pill.
   余额默认每 5 分钟自动刷新，也可以点击胶囊内的刷新按钮手动刷新。
 - The top-up capsule opens `https://platform.deepseek.com/usage` in a new tab.
   充值胶囊会在新标签页打开 `https://platform.deepseek.com/usage`。
 - Peak/valley status is computed locally in the browser, refreshes every second, and shows an HH:MM:SS countdown to the end of the current pricing period.
   峰谷状态在浏览器本地计算，每秒刷新，并以 HH:MM:SS 显示当前计费时段剩余时间。
-- No third-party network calls. The only outbound request is to the official DeepSeek balance endpoint.
-  没有第三方网络请求；唯一对外请求是 DeepSeek 官方余额接口。
+- No third-party network calls. Outbound requests are limited to the official DeepSeek balance endpoint (API-key path) and the DeepSeek account platform the app's own account settings already use (account path).
+  没有第三方网络请求；对外请求仅限于 DeepSeek 官方余额接口（API Key 路径），以及应用账号设置本就使用的 DeepSeek 账号平台（账号路径）。
 
 ## Security / Audit / 安全与审计
 
